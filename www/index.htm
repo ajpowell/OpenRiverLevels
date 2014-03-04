@@ -1,0 +1,70 @@
+<html>
+<head>
+<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" />
+<link type="text/css" rel="stylesheet" href="leafletjs/plugins/leaflet.markercluster/dist/MarkerCluster.css" />
+<link type="text/css" rel="stylesheet" href="leafletjs/plugins/leaflet.markercluster/dist/MarkerCluster.Default.css" />
+<link type="text/css" rel="stylesheet" href="leafletjs/plugins/leaflet.awesome-markers/dist/leaflet.awesome-markers.css" />
+<link type="text/css" rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
+</head>
+<body>
+<!--<div id="map" style="width: 600px; height: 400px"> </div>-->
+<div id="map" style="width: 100%; height: 100%"> </div>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js"></script>
+<script src="leafletjs/plugins/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
+<script src="leafletjs/plugins/leaflet.awesome-markers/dist/leaflet.awesome-markers.min.js"></script>
+<script src="bootstrap/js/bootstrap.js"></script>
+<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+<script>
+
+//var markers = new L.LayerGroup();
+var markers = new L.MarkerClusterGroup({spiderfyOnMaxZoom: true, showCoverageOnHover: false, zoomToBoundsOnClick: true});
+
+var map = L.map('map', {
+                        layers: [markers],
+                        maxZoom: 18
+                       }).setView([51.861, -1.593],10); 
+
+$.ajaxSetup({cache:false});
+
+L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 18
+}).addTo(map);
+
+// Creates a red marker with the coffee icon
+var redMarker = L.AwesomeMarkers.icon({
+    icon: 'map-marker',
+    prefix: 'fa',
+    markerColor: 'red'
+  });
+var blueMarker = L.AwesomeMarkers.icon({
+    icon: 'home',
+    prefix: 'fa',
+    markerColor: 'blue'
+  });
+
+//$.getJSON("../riverlevels/get_sites_evenlode.php", function (data) {
+$.getJSON("http://apmf.co.uk/apowell/riverlevels/get_sites.php", function (data) {
+  for (var i = 0; i < data.length; i++) {
+//      console.log(data[i].siteid);
+
+      var location = new L.LatLng(data[i].lat, data[i].lon);
+      var sitename = data[i].sitename;
+      var river = data[i].river;
+      var siteid = data[i].siteid;
+
+      //markers.addLayer( new L.Marker(location, { title: sitename }));
+      markers.addLayer( new L.Marker(location, { title: sitename, icon: redMarker }).bindPopup("<b>" + sitename + 
+                                                                 "</b><br>" + river + "<br><small>" + siteid + "</small>"));
+    }
+  }).fail(function() {
+    console.log( ".getJSON error..." );
+  });
+
+  map.addLayer(markers);
+//var marker = L.marker([51.861, -1.593],{title: 'Test', icon: blueMarker}).addTo(map);
+
+</script>
+</body>
+</html>
