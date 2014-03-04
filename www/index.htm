@@ -86,8 +86,8 @@ $.getJSON("orlapi/get_sites.php", function (data) {
 
       //markers.addLayer( new L.Marker(location, { title: sitename }));
       markers.addLayer( new L.Marker(location, { title: sitename, icon: statusMarker }).bindPopup(
-                 "<b>" + sitename + "</b><br>" + river + "<br>" + level + "m (<small>" + 
-                 read_time + "</small><br><small>" + siteid + "</small>"));
+                 "<b>" + sitename + "</b><br>" + river + "<br>" + level + "m<br>(<small>Read: " + 
+                 read_time + ")</small><br><small>" + siteid + "</small>"));
     }
   }).fail(function() {
     console.log( ".getJSON error..." );
