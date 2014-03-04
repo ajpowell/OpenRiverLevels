@@ -83,11 +83,16 @@ $.getJSON("orlapi/get_sites.php", function (data) {
            statusMarker = blackMarker;
         }
       }
+      
+      var markerText = "<b>" + sitename + "</b><br>" + river + "<br>" + level + "m ";
+      if (excess != '0') {
+          markerText = markerText + "(" + excess + "m over maximum)"
+      }
+          markerText = markerText + "<br><small>Read: " + read_time + "</small><br><small>(siteid:" + siteid + ")</small>";
 
       //markers.addLayer( new L.Marker(location, { title: sitename }));
       markers.addLayer( new L.Marker(location, { title: sitename, icon: statusMarker }).bindPopup(
-                 "<b>" + sitename + "</b><br>" + river + "<br>" + level + "m<br>(<small>Read: " + 
-                 read_time + ")</small><br><small>" + siteid + "</small>"));
+                 markerText));
     }
   }).fail(function() {
     console.log( ".getJSON error..." );
