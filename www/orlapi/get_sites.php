@@ -6,8 +6,8 @@
 //
 // The json array is manually built - the format of the output is:
 //
-// [{"id":"0","siteid":"0130TH","sitename":"Ewen","river":"Thames","lat":"51.6742760548","lon":"-1.9890079753"},
-//  {"id":"1","siteid":"0144TH","sitename":"Somerford Keynes","river":"Thames","lat":"51.6502637870","lon":"-1.9716671269"}]
+// [{"id":"0","siteid":"0130TH","sitename":"Ewen","river":"Thames","lat":"51.6742760548","lon":"-1.9890079753","level":"0.424","excess":"0","read_time":"04:30 01/03/2014","status":"normal"},
+//  {"id":"1","siteid":"0144TH","sitename":"Somerford Keynes","river":"Thames","lat":"51.6502637870","lon":"-1.9716671269","level":"1.033","excess":"0","read_time":"10:30 01/03/2014","status":"normal"}]
 //
 // Note the [] around the json output (required as processed as a json array by javascript)
 //

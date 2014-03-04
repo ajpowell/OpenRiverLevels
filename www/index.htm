@@ -65,10 +65,29 @@ $.getJSON("orlapi/get_sites.php", function (data) {
       var sitename = data[i].sitename;
       var river = data[i].river;
       var siteid = data[i].siteid;
+      var status = data[i].status;
+      var read_time = data[i].read_time;
+      var level = data[i].level;
+      var excess = data[i].excess;
+      
+      var statusMarker;
+      
+      if (status == 'high' {
+        statusMarker = redMarker;
+      }
+      else {
+        if status == 'warning' {
+           statusMarker = orangeMarker;
+        }
+        else {
+           statusMarker = blackMarker;
+        }
+      }
 
       //markers.addLayer( new L.Marker(location, { title: sitename }));
-      markers.addLayer( new L.Marker(location, { title: sitename, icon: redMarker }).bindPopup("<b>" + sitename + 
-                                                                 "</b><br>" + river + "<br><small>" + siteid + "</small>"));
+      markers.addLayer( new L.Marker(location, { title: sitename, icon: statusMarker }).bindPopup(
+                 "<b>" + sitename + "</b><br>" + river + "<br>" + level + "m (<small>" + 
+                 read_time + "</small><br><small>" + siteid + "</small>"));
     }
   }).fail(function() {
     console.log( ".getJSON error..." );
