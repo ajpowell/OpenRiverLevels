@@ -15,7 +15,7 @@
 //
 
 // Pull in the include file, this holds the $database, $username, $password and $hostname details 
-include '../../orlapi.inc.php';
+include '../../../orlapi.inc.php';
 
 // Create connection to the database
 $con = mysql_connect($hostname,$username,$password);
