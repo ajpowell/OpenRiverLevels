@@ -18,34 +18,45 @@
 <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
 <script>
 
+// Create the markers layer
 //var markers = new L.LayerGroup();
 var markers = new L.MarkerClusterGroup({spiderfyOnMaxZoom: true, showCoverageOnHover: false, zoomToBoundsOnClick: true});
 
+// Create the map (will fill the 'map' div)
 var map = L.map('map', {
                         layers: [markers],
                         maxZoom: 18
                        }).setView([51.861, -1.593],10); 
 
+// Configure the jQuery ajax object
 $.ajaxSetup({cache:false});
 
+// Load the tiles into the map
 L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 18
 }).addTo(map);
 
-// Creates a red marker with the coffee icon
+// Create markers in various colours
 var redMarker = L.AwesomeMarkers.icon({
     icon: 'map-marker',
     prefix: 'fa',
     markerColor: 'red'
   });
-var blueMarker = L.AwesomeMarkers.icon({
-    icon: 'home',
+var blackMarker = L.AwesomeMarkers.icon({
+    icon: 'map-marker',
     prefix: 'fa',
-    markerColor: 'blue'
+    markerColor: 'black'
+  });
+var orangeMarker = L.AwesomeMarkers.icon({
+    icon: 'map-marker',
+    prefix: 'fa',
+    markerColor: 'orange'
   });
 
+// Using jQuery ajax, pull in the sites as a json array
 //$.getJSON("../riverlevels/get_sites_evenlode.php", function (data) {
-$.getJSON("http://apmf.co.uk/apowell/riverlevels/get_sites.php", function (data) {
+$.getJSON("orlapi/get_sites.php", function (data) {
+  // Loop through each site and add marker to markers layer
   for (var i = 0; i < data.length; i++) {
 //      console.log(data[i].siteid);
 
@@ -62,6 +73,7 @@ $.getJSON("http://apmf.co.uk/apowell/riverlevels/get_sites.php", function (data)
     console.log( ".getJSON error..." );
   });
 
+// Add the markers layer to the map
   map.addLayer(markers);
 //var marker = L.marker([51.861, -1.593],{title: 'Test', icon: blueMarker}).addTo(map);
 
