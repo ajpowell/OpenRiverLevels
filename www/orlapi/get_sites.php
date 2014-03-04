@@ -1,15 +1,33 @@
 <?php
+// get_sites.php
+//
+// A simple php page to connect to a MySQL database and pull back
+// json array of the water level measuring stations.
+//
+// The json array is manually built - the format of the output is:
+//
+// [{"id":"0","siteid":"0130TH","sitename":"Ewen","river":"Thames","lat":"51.6742760548","lon":"-1.9890079753"},
+//  {"id":"1","siteid":"0144TH","sitename":"Somerford Keynes","river":"Thames","lat":"51.6502637870","lon":"-1.9716671269"}]
+//
+// Note the [] around the json output (required as processed as a json array by javascript)
+//
+
+// Pull in the include file, this holds the $database, $username, $password and $hostname details 
+include '../../../orlapi.inc.php';
+
 header("Content-Type:application/json"); // Set Content Type JSON
 
-$con = mysql_connect("localhost","apmfcouk_river1","12341qaz");
+// Create connection to the database
+$con = mysql_connect($hostname,$username,$password);
 if (!$con)
   {
   die('Could not connect: ' . mysql_error());
   }
 
-// some code
-mysql_select_db('apmfcouk_riverlevels');
+// Select the correct database (in case not default)
+mysql_select_db($database);
 
+// Create the SQL statement
 $sql = "select rloi.wiski_river_name,
        rloi.location,
        lev.level,
@@ -20,15 +38,8 @@ $sql = "select rloi.wiski_river_name,
        case
          when lev.level > norm_level_max * 1.3 then 'high'
          when lev.level >= norm_level_max then 'warning'
-         when lev.level < norm_level_min then 'low'
          else 'normal'
        end status,
-       case
-         when lev.level > norm_level_max * 1.3 then 'Ol_icon_red_example.png'
-         when lev.level >= norm_level_max then 'Ol_icon_amber_example.png'
-         when lev.level < norm_level_max then 'Ol_icon_black_example.png'
-         else 'Ol_icon_blue_example.png'
-       end icon,
        DATE_FORMAT(lev.read_dt,'%H:%i %d/%m/%Y') read_dt,
        sit.lat,
        sit.lon,
@@ -41,6 +52,7 @@ $sql = "select rloi.wiski_river_name,
   join ea_sites sit on sit.siteid = lev.siteid
  where sit.lat is not null;";
 
+// Execute the SQL query against the database...
 $result = mysql_query($sql,$con);
 $num = mysql_num_rows($result);
 
@@ -54,32 +66,32 @@ while ($i < $num ) {
   $read_time =  mysql_result($result,$i, "read_dt");
   $excess =  mysql_result($result,$i, "excess");
   $status =  mysql_result($result,$i, "status");
-  $icon =  mysql_result($result,$i, "icon");
   $lat =  mysql_result($result,$i, "lat");
   $lon =  mysql_result($result,$i, "lon");
   $siteid =  mysql_result($result,$i, "siteid");
-
-  #echo "<tr><td>$sitename</td><td>$watercourse</td><td>$level</td><td>$read_time</td></tr>";
-  
+ 
   if ($i>0) 
     echo ",";
  
+  // Dump out the json data for each row
   echo "{\"id\":\"".$i.
        "\",\"siteid\":\"".$siteid.
        "\",\"sitename\":\"".$sitename.
        "\",\"river\":\"".$watercourse.
        "\",\"lat\":\"".$lat.
        "\",\"lon\":\"".$lon.
+       "\",\"level\":\"".$level.
+       "\",\"excess\":\"".$excess.
+       "\",\"read_time\":\"".$read_time.
+       "\",\"status\":\"".$status.
        "\"}";
 
   
   $i++;
 }
 echo "]";
-#echo "</tbody></table>";
 
-#echo "<small>Table derived from data obtained from <a href='http://flooddata.alphagov.co.uk/'>http://flooddata.alphagov.co.uk/</a><br>Last page refresh: " . date('Y-m-d H:i:s') . " </small>";
-
+// Close the DB connection
 mysql_close($con);
 ?>
 
