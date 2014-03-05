@@ -1,6 +1,9 @@
 <?php
 require 'flight/Flight.php';
 
+// Pull in the include file, this holds the $database, $username, $password and $hostname details 
+include '../../../orlapi.inc.php';
+
 Flight::route('/', function(){
     echo '<h2>Flight</h2><br>hello world!';
 });
@@ -10,12 +13,12 @@ Flight::route('/too', function(){
 });
 
 Flight::route('/level/@siteid/latest', function($siteid){
-    if (!$link = mysql_connect('localhost', 'apmfcouk_river1', '12341qaz')) {
+    if (!$link = mysql_connect($hostname,$username,$password)) {
       echo 'Could not connect to mysql';
       exit;
     }
 
-    if (!mysql_select_db('apmfcouk_riverlevels', $link)) {
+    if (!mysql_select_db($database, $link)) {
         echo 'Could not select database';
         exit;
     }
