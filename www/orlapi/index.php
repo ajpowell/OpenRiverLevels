@@ -2,7 +2,7 @@
 require 'flight/Flight.php';
 
 // Pull in the include file, this holds the $database, $username, $password and $hostname details 
-include '../../../orlapi.inc.php';
+include '../../../../orlapi.inc.php';
 
 Flight::route('/', function(){
     echo '<h2>Flight</h2><br>hello world!';
