@@ -1,6 +1,6 @@
 <?php
 
-require 'flight/Flight.php';
+require './flight/Flight.php';
 
 Flight::route('/', function(){
     echo '<h2>Flight</h2><br>hello world!';
