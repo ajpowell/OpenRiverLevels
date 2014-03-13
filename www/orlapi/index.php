@@ -38,7 +38,7 @@ Flight::route('/level/@siteid/latest', function($siteid){
         #echo $row['level'];
         return Flight::json(array('siteid' => $siteid,
                                   'level' => $row['level'],
-                                  'sitename' => $row['sitename'],
+                                  'location' => $row['location'],
                                   'read_dt' => $row['last_read']));
     }
 
