@@ -24,7 +24,8 @@ Flight::route('/level/@siteid/latest', function($siteid){
         exit;
     }
 
-    $sql    = 'SELECT sitename, level, date_format(lev.read_dt, \'%H:%i %e/%m/%Y\') last_read FROM levels lev join sites sit on sit.siteid = lev.siteid WHERE lev.siteid = "' . $siteid . '" order by read_dt desc limit 1;';
+    #$sql    = 'SELECT sitename, level, date_format(lev.read_dt, \'%H:%i %e/%m/%Y\') last_read FROM levels lev join sites sit on sit.siteid = lev.siteid WHERE lev.siteid = "' . $siteid . '" order by read_dt desc limit 1;';
+    $sql    = 'SELECT location, level, date_format(lev.read_dt, \'%H:%i %e/%m/%Y\') last_read FROM ea_levels lev join ea_rloi sit on sit.telemetry_id = lev.siteid WHERE lev.siteid = "' . $siteid . '" order by read_dt desc limit 1;';
     $result = mysql_query($sql, $link);
 
     if (!$result) {
