@@ -11,14 +11,16 @@ I am making a simple API for this data, mainly to support the mapping page, but 
 
 ## Latest level for a site:
 
-/level/<SITEID>/latest
+```
+/level/SITEID/latest
+```
 
 e.g.: http://apmf.co.uk/OpenRiverLevels/orlapi/level/1238TH/latest
 
 This returns the latest data for siteid (telemetry_id) 1238TH - in this case my local site at Shipton-under-Wychwood as a json object:
 
-'''
+```
 {"siteid":"1238TH","level":"0.822","location":"Shipton Under Wychwood","read_dt":"04:30 14\/03\/2014"}
-'''
+```
 
 To find the siteid, click on the markers displayed on the OpenRiverLevels map at http://apmf.co.uk/OpenRiverLevels/
