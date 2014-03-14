@@ -1,10 +1,10 @@
 www
 ===
 
-Uses Leafletjs as a layer over OpenStreetMap
-Extra Leafletjs plugins used to provide markers (awesome-markers) and clustering (markerclusters)
-Additional js libraries added for awesome-markers (Bootstrap and Font-Awesome)
-Uses Flight to provide RESTFul style API capability (under orlapi directory)
+- Uses Leafletjs as a layer over OpenStreetMap
+- Extra Leafletjs plugins used to provide markers (awesome-markers) and clustering (markerclusters)
+- Additional js libraries added for awesome-markers (Bootstrap and Font-Awesome)
+- Uses Flight to provide RESTFul style API capability (under orlapi directory)
 
 Todo
 ----
