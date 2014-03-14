@@ -23,4 +23,4 @@ This returns the latest data for siteid (telemetry_id) 1238TH - in this case my 
 {"siteid":"1238TH","level":"0.822","location":"Shipton Under Wychwood","read_dt":"04:30 14\/03\/2014"}
 ```
 
-To find the siteid, click on the markers displayed on the OpenRiverLevels map at http://apmf.co.uk/OpenRiverLevels/
+To find the siteid, click on the markers displayed on the OpenRiverLevels map at http://apmf.co.uk/OpenRiverLevels/ - the siteid is given in the popup.
