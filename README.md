@@ -9,7 +9,7 @@ The live version of this site can be found at http://apmf.co.uk/OpenRiverLevels/
 
 I am making a simple API for this data, mainly to support the mapping page, but could be useful elsewhere - current API calls are:
 
-## Latest level for a site:
+### Latest level for a site:
 
 ```
 /level/SITEID/latest
